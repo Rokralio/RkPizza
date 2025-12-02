@@ -1,0 +1,23 @@
+# 1. HERENCIA:
+# Hereda todas las reglas de Shopify (un conjunto de reglas robusto y profesional).
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
+# 2. SOBREESCRITURAS Y AJUSTES ESPECÍFICOS:
+# Sobreescribe o agrega configuraciones específicas para definir tu propio estilo.
+AllCops:
+  # Excluye la carpeta de configuración de Tailwind CSS para evitar warnings innecesarios
+  Exclude:
+    - 'tailwind.config.js'
+
+Style/StringLiterals:
+  # Preferir comillas simples ' ' en vez de dobles " "
+  EnforcedStyle: single_quotes
+
+Style/TrailingCommaInArrayLiteral:
+  # No requerir coma al final de arrays multilínea
+  EnforcedStyleForMultiline: no_comma
+
+Style/SymbolArray:
+  # Usar el formato %i[] para arrays de símbolos, e.g., %i[a b c]
+  EnforcedStyle: percent
