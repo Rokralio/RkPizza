@@ -1,0 +1,52 @@
+<div class="container mx-auto p-8">
+  <h1 class="text-4xl font-bold mb-8 text-center">📋 Gestión de Pedidos RKpizza</h1>
+  
+  <%= render 'shared/flash' %> 
+
+  <div class="grid grid-cols-1 gap-6">
+    <% if @orders.empty? %>
+      <p class="text-center text-gray-500 text-lg">No hay pedidos pendientes actualmente.</p>
+    <% end %>
+
+    <% @orders.each do |order| %>
+      <%# Definimos colores según el estado %>
+      <% border_class = order.pending? ? 'border-red-500' : (order.in_progress? ? 'border-yellow-500' : 'border-green-500') %>
+      <% status_class = order.pending? ? 'bg-red-100 text-red-800' : (order.in_progress? ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800') %>
+
+      <div class="bg-white p-6 rounded-lg shadow-xl border-l-4 <%= border_class %>">
+        
+        <div class="flex justify-between items-center mb-4 border-b pb-2">
+          <h2 class="text-2xl font-bold">Pedido #<%= order.id %> - Mesa <%= order.table_number %></h2>
+          <span class="px-3 py-1 text-sm font-semibold rounded-full <%= status_class %>">
+            Estado: <%= order.status.humanize %>
+          </span>
+        </div>
+
+        <p class="text-gray-700 mb-3">Total: <span class="font-extrabold text-xl text-red-600">$<%= number_to_currency(order.total_price, unit: "", separator: ".", delimiter: ",", precision: 2) %></span></p>
+        <p class="text-sm text-gray-500 mb-4">Recibido hace: <%= time_ago_in_words(order.created_at) %> atrás</p>
+
+        <% order.pizzas.each do |pizza| %>
+          <div class="mb-4 bg-gray-50 p-4 rounded-md">
+            <p class="font-semibold">Pizza (<%= pizza.base.name %>):</p>
+            <ul class="list-disc list-inside ml-4 text-sm">
+              <% pizza.ingredients.each do |ing| %>
+                <li><%= ing.name %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="flex space-x-2 mt-4">
+          <% unless order.completed? %>
+            <% if order.pending? %>
+              <%= button_to 'Iniciar Preparación', update_status_order_path(order, new_status: :in_progress), method: :patch, class: "bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded transition" %>
+            <% end %>
+            
+            <%= button_to 'Marcar como Completado', update_status_order_path(order, new_status: :completed), method: :patch, class: "bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition" %>
+          <% end %>
+        </div>
+
+      </div>
+    <% end %>
+  </div>
+</div>
