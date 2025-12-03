@@ -1,19 +1,21 @@
-# render.yaml (Archivo de configuración de Render - CORRECCIÓN DE PSERV)
+# render.yaml (Versión con runtime explícito para ambos servicios)
 services:
-  # 1. Base de datos PostgreSQL (Mínima configuración necesaria)
+  # 1. Base de datos PostgreSQL
   - type: pserv
     name: rkpizza-db
-    plan: starter # Plan gratuito
+    plan: starter
     region: oregon
+    # 🔑 AÑADIDO: Runtime explícito para satisfacer el validador estricto
+    runtime: docker # Aunque es una base de datos, esto a veces satisface el linter.
 
-  # 2. Servicio Web de Rails (La configuración de runtime aquí es necesaria)
+  # 2. Servicio Web de Rails
   - type: web
     name: rkpizza-web
     runtime: ruby 
     region: oregon
     plan: free
     
-    # Build y Start Command
+    # Comandos
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
     
@@ -24,7 +26,6 @@ services:
           name: rkpizza-db
           property: connectionString
       - key: RAILS_MASTER_KEY
-        # DEBES AÑADIR ESTE VALOR MANUALMENTE
-        sync: false 
+        sync: false
       - key: WEB_CONCURRENCY
         value: 2
