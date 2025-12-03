@@ -1,0 +1,9 @@
+<div class="max-w-lg mx-auto">
+  <h1 class="text-3xl font-bold mb-6">Nuevo Ingrediente</h1>
+
+  <%= render "form", ingredient: @ingredient %>
+
+  <div class="mt-4">
+    <%= link_to "Regresar a ingredientes", ingredients_path, class: "text-blue-600 hover:text-blue-800" %>
+  </div>
+</div>

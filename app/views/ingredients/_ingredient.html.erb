@@ -1,0 +1,27 @@
+<div id="<%= dom_id ingredient %>" class="border p-4 mb-4 rounded shadow">
+  <p>
+    <strong class="font-semibold">Nombre:</strong>
+    <%= ingredient.name %>
+  </p>
+
+  <p>
+    <strong class="font-semibold">Precio:</strong>
+    $<%= ingredient.price %>
+  </p>
+
+  <p>
+    <strong class="font-semibold">Categoría:</strong>
+    <%= ingredient.category %>
+  </p>
+  
+  <p>
+    <strong class="font-semibold">URL de Imagen:</strong>
+    <%= ingredient.image_url %>
+  </p>
+
+  <div class="mt-4 flex gap-2">
+    <%= link_to "Mostrar", ingredient, class: "text-blue-600 hover:text-blue-800" %> |
+    <%= link_to "Editar", edit_ingredient_path(ingredient), class: "text-yellow-600 hover:text-yellow-800" %> |
+    <%= button_to "Eliminar", ingredient, method: :delete, data: { confirm: '¿Estás seguro de que quieres eliminar este ingrediente?' }, class: "text-red-600 hover:text-red-800 bg-transparent border-none p-0 cursor-pointer" %>
+  </div>
+</div>
