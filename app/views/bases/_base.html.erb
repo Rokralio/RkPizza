@@ -1,18 +1,18 @@
-<div id="<%= dom_id base %>" class="w-full sm:w-auto my-5 space-y-5">
+<%# Nota: Tu scaffold usa 'basis' en el controlador, pero el partial es '_base' %>
+<div id="<%= dom_id base %>" class="bg-white border border-gray-200 rounded-lg shadow-md p-5 flex flex-col justify-between h-full">
   <div>
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= base.name %>
+    <h2 class="text-xl font-bold text-gray-900 mb-2"><%= base.name %></h2>
+    
+    <p class="text-2xl font-semibold text-red-600 mb-3">$<%= base.price %></p>
+    
+    <p class="text-sm text-gray-600 mb-4 italic"><%= truncate(base.description, length: 70) %></p>
+    
+    <p class="text-sm text-gray-500 mb-1">URL de Imagen: <%= base.image_url %></p>
   </div>
-  <div>
-    <strong class="block font-medium mb-1">Price:</strong>
-    <%= base.price %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Description:</strong>
-    <%= base.description %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">Image url:</strong>
-    <%= base.image_url %>
+
+  <div class="flex space-x-2 border-t pt-4 mt-auto">
+    <%= link_to "Ver", base, class: "text-sm text-indigo-600 hover:text-indigo-800 font-medium" %>
+    <%= link_to "Editar", edit_basis_path(base), class: "text-sm text-yellow-600 hover:text-yellow-800 font-medium" %>
+    <%= button_to "Eliminar", base, method: :delete, data: { confirm: '¿Estás seguro?' }, class: "text-sm text-red-600 hover:text-red-800 font-medium bg-transparent border-none p-0 cursor-pointer" %>
   </div>
 </div>

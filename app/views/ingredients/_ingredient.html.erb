@@ -1,27 +1,17 @@
-<div id="<%= dom_id ingredient %>" class="border p-4 mb-4 rounded shadow">
-  <p>
-    <strong class="font-semibold">Nombre:</strong>
-    <%= ingredient.name %>
-  </p>
+<div id="<%= dom_id ingredient %>" class="bg-white border border-gray-200 rounded-lg shadow-md p-5 flex flex-col justify-between h-full">
+  <div>
+    <h2 class="text-xl font-bold text-gray-900 mb-2"><%= ingredient.name %></h2>
+    
+    <p class="text-2xl font-semibold text-red-600 mb-3">$<%= ingredient.price %></p>
+    
+    <p class="text-sm text-gray-500 mb-1">Categoría: <%= ingredient.category %></p>
+    
+    <p class="text-sm text-gray-500 mb-4">URL de Imagen: <%= ingredient.image_url %></p>
+  </div>
 
-  <p>
-    <strong class="font-semibold">Precio:</strong>
-    $<%= ingredient.price %>
-  </p>
-
-  <p>
-    <strong class="font-semibold">Categoría:</strong>
-    <%= ingredient.category %>
-  </p>
-  
-  <p>
-    <strong class="font-semibold">URL de Imagen:</strong>
-    <%= ingredient.image_url %>
-  </p>
-
-  <div class="mt-4 flex gap-2">
-    <%= link_to "Mostrar", ingredient, class: "text-blue-600 hover:text-blue-800" %> |
-    <%= link_to "Editar", edit_ingredient_path(ingredient), class: "text-yellow-600 hover:text-yellow-800" %> |
-    <%= button_to "Eliminar", ingredient, method: :delete, data: { confirm: '¿Estás seguro de que quieres eliminar este ingrediente?' }, class: "text-red-600 hover:text-red-800 bg-transparent border-none p-0 cursor-pointer" %>
+  <div class="flex space-x-2 border-t pt-4 mt-auto">
+    <%= link_to "Ver", ingredient, class: "text-sm text-indigo-600 hover:text-indigo-800 font-medium" %>
+    <%= link_to "Editar", edit_ingredient_path(ingredient), class: "text-sm text-yellow-600 hover:text-yellow-800 font-medium" %>
+    <%= button_to "Eliminar", ingredient, method: :delete, data: { confirm: '¿Estás seguro?' }, class: "text-sm text-red-600 hover:text-red-800 font-medium bg-transparent border-none p-0 cursor-pointer" %>
   </div>
 </div>

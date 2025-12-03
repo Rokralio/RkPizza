@@ -1,12 +1,16 @@
-<p style="color: green"><%= notice %></p>
+<p style="color: green" class="text-green-600 font-medium mb-4"><%= notice %></p>
 
-<div class="flex justify-between items-center mb-6">
-  <h1 class="text-3xl font-bold">Gestión de Ingredientes</h1>
-  <%= link_to "Nuevo Ingrediente", new_ingredient_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+<div class="flex justify-between items-center mb-6 border-b pb-4">
+  <h1 class="text-3xl font-extrabold text-gray-800">Gestión de Ingredientes</h1>
+  <%= link_to "Nuevo Ingrediente", new_ingredient_path, class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-150" %>
 </div>
 
-<div id="ingredients" class="min-w-full">
-  <% @ingredients.each do |ingredient| %>
-    <%= render ingredient %>
+<div id="ingredients" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <% if @ingredients.any? %>
+    <% @ingredients.each do |ingredient| %>
+      <%= render ingredient %>
+    <% end %>
+  <% else %>
+    <p class="text-center my-10 col-span-full text-gray-500">No se encontraron ingredientes.</p>
   <% end %>
 </div>
