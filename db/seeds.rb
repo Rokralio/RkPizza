@@ -4,24 +4,24 @@ puts '--- Limpiando Ingredientes y Bases (opcional, si quieres reiniciar todo) -
 # Base.destroy_all
 # Ingredient.destroy_all
 
-puts '--- Sembrando Bases ---'
+puts '--- Sembrando Bases (PRECIOS ACTUALIZADOS) ---'
 Base.find_or_create_by!(name: 'Masa Clásica') do |b|
-  b.price = 5.00
+  b.price = 1.00
   b.description = 'Nuestra masa tradicional, ni gruesa ni fina.'
   b.image_url = 'base_classic.png'
 end
 
 Base.find_or_create_by!(name: 'Masa Fina Integral') do |b|
-  b.price = 6.50
+  b.price = 2.50
   b.description = 'Opción ligera y saludable con harina integral.'
   b.image_url = 'base_thin.png'
 end
 
-puts '--- Sembrando Ingredientes ---'
+puts '--- Sembrando Ingredientes (VERIFICADOS) ---'
 
 # Ingredientes Base y Quesos (existentes)
 Ingredient.find_or_create_by!(name: 'Salsa de Tomate') do |i|
-  i.price = 0.00 # Precio base
+  i.price = 0.00
   i.category = 'sauce'
   i.image_url = 'topping_tomato.png'
 end

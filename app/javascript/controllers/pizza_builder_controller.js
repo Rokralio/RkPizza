@@ -16,11 +16,11 @@ export default class extends Controller {
   static values = {
     selectedBaseId: Number,
     selectedIngredients: Array,
-    basePrice: Number, // Ahora es solo el precio base (Masa)
+    basePrice: Number, // Precio adicional de la Masa
     totalPrice: Number,
     // NUEVOS VALUES PARA EL TAMAÑO
     selectedSizeName: String, 
-    selectedSizePrice: Number // Precio adicional por el tamaño
+    selectedSizePrice: Number // Precio BASE por el tamaño
   }
   
   connect() {
@@ -35,7 +35,7 @@ export default class extends Controller {
 
   // --- Métodos de Interacción ---
 
-  // NUEVO MÉTODO PARA SELECCIONAR TAMAÑO
+  // MÉTODO PARA SELECCIONAR TAMAÑO (Se mantiene igual)
   selectSize(event) {
     const selectedSizeElement = event.currentTarget;
     const sizeName = selectedSizeElement.dataset.sizeName;
@@ -56,7 +56,7 @@ export default class extends Controller {
     // 4. Recalcular el precio total
     this.calculateTotal(); 
   }
-  // FIN: NUEVO MÉTODO
+  // FIN: MÉTODO TAMAÑO
 
   selectBase(event) {
     const baseElement = event.currentTarget;
@@ -137,11 +137,13 @@ export default class extends Controller {
   calculateTotal() {
     let subtotal = 0;
     
-    // 1. Sumar el precio de la Base (Masa) y el Precio del Tamaño
-    subtotal += this.basePriceValue; // Precio de la Masa
-    subtotal += this.selectedSizePriceValue; // NUEVO: Precio adicional del Tamaño
+    // 1. Precio Base del Tamaño
+    subtotal += this.selectedSizePriceValue; // <--- CAMBIO: Suma el precio base del tamaño (ej. $6.00)
 
-    // 2. Sumar el precio de los Ingredientes
+    // 2. Precio Adicional de la Masa
+    subtotal += this.basePriceValue; // <--- CAMBIO: Suma el precio adicional de la masa (ej. $1.00)
+
+    // 3. Sumar el precio de los Ingredientes
     this.ingredientSelectionTargets.forEach(el => {
       const ingredientId = parseInt(el.dataset.ingredientId);
       if (this.selectedIngredientsValue.includes(ingredientId)) {
@@ -188,7 +190,7 @@ export default class extends Controller {
   placeOrder(event) {
     event.preventDefault(); // Evitar comportamiento de formulario por defecto
     
-    // NUEVA VALIDACIÓN: Debe seleccionar un tamaño Y una base
+    // VALIDACIÓN: Debe seleccionar un tamaño Y una base
     if (!this.selectedBaseIdValue || !this.selectedSizeNameValue) {
       alert("Por favor, selecciona un tamaño y una base antes de realizar el pedido.");
       return;
@@ -209,7 +211,7 @@ export default class extends Controller {
         total_price: this.totalPriceValue,
         base_id: this.selectedBaseIdValue,
         ingredient_ids: this.selectedIngredientsValue,
-        size: this.selectedSizeNameValue // ¡NUEVO! ENVIAR EL TAMAÑO
+        size: this.selectedSizeNameValue 
       }
     };
     
