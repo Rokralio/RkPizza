@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class IngredientsController < ApplicationController
+  include AdminAuth # <-- ¡AÑADIDO!
+
   # Incluye el módulo de seguridad (lo haremos en el paso 2 de la Fase 8)
-  # include AdminAuth
+  # include AdminAuth # <--- (COMENTARIO ANTERIOR ELIMINADO/REEMPLAZADO)
 
   before_action :set_ingredient, only: %i[show edit update destroy]
 

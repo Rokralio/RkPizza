@@ -16,10 +16,37 @@
   </head>
 
   <body>
+    <%# Muestra el botón de Cerrar Sesión solo si el administrador está autenticado %>
+    <% if admin_logged_in? %>
+      <div class="fixed top-0 right-0 m-4 z-50">
+        <%# 🔑 ¡CAMBIO! Ahora es un botón que llama a una función JS en lugar de un link_to directo %>
+        <button type="button" 
+                onclick="forceLogoutAndRedirect();"
+                class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-150 shadow-lg">
+          Cerrar Sesión
+        </button>
+      </div>
+    <% end %>
+
     <main class="container mx-auto mt-28 px-5">
       <div class="w-full">
         <%= yield %>
       </div>
     </main>
+    
+    <%# 🔑 ¡NUEVO! Script para forzar la petición de logout y redirigir %>
+    <script>
+    function forceLogoutAndRedirect() {
+      // 1. Hacemos la petición a /admin_logout. Esto fuerza el popup 401 que borra las credenciales al CANCELAR.
+      // El navegador realiza esta petición en segundo plano.
+      fetch('<%= admin_logout_path %>');
+      
+      // 2. Redirigimos inmediatamente al inicio, sin esperar la respuesta del servidor.
+      // Esto rompe el ciclo de vida de Rails que causaba el DoubleRenderError.
+      setTimeout(function() {
+        window.location.href = '/';
+      }, 100); 
+    }
+    </script>
   </body>
 </html>

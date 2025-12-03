@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   resources :bases
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
+  # Ruta de LOGOUT:
+  get 'admin_logout', to: 'bases#admin_logout', as: :admin_logout
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   get 'up' => 'rails/health#show', as: :rails_health_check
 

@@ -10,7 +10,7 @@
     
     <div class="md:col-span-2">
       
-      <h2 class="text-2xl font-semibold mt-6 mb-4">0. Elige el Tamaño</h2>
+      <h2 class="text-2xl font-semibold mt-6 mb-4">Elige el Tamaño</h2>
       <div id="size-selection" class="flex flex-wrap gap-4 mb-8" 
           data-pizza-builder-target="sizeSelection">
         
@@ -38,7 +38,7 @@
         <% end %>
       
       </div>
-      <h2 class="text-2xl font-semibold mb-4 border-b pb-2">1. Elige tu Base</h2>
+      <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Elige tu Base</h2>
       <div id="bases-selection" class="flex flex-wrap gap-4 mb-8">
         <% @bases.each do |base| %>
           <div class="p-4 border rounded-lg shadow-md cursor-pointer hover:bg-gray-100 transition duration-150"
@@ -48,12 +48,12 @@
               data-base-price="<%= base.price %>"
               data-image-url="<%= base.image_url %>">
             <h3 class="font-bold"><%= base.name %></h3>
-            <p class="text-sm text-gray-600">$<%= base.price %> (Adicional)</p>
+            <p class="text-sm text-gray-600">$<%= base.price %></p>
           </div>
         <% end %>
       </div>
 
-      <h2 class="text-2xl font-semibold mb-4 border-b pb-2">2. Añade Ingredientes</h2>
+      <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Añade Ingredientes</h2>
       <div id="ingredients-selection" class="flex flex-wrap gap-4">
         <% @ingredients.each do |ingredient| %>
           <div class="p-4 border rounded-lg shadow-sm cursor-pointer transition duration-150"
@@ -70,7 +70,7 @@
     </div>
     
     <div class="md:col-span-1 sticky top-4">
-      <h2 class="text-2xl font-semibold mb-4 border-b pb-2">3. Tu Pizza Actual</h2>
+      <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Tu Pizza Actual</h2>
       
       <div data-pizza-builder-target="pizzaVisualArea" 
           class="relative w-full h-64 bg-gray-200 rounded-full overflow-hidden mb-4 border-8 border-yellow-700">

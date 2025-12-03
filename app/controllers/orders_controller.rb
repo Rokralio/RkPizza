@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class OrdersController < ApplicationController
+  include AdminAuth # <-- ¡AÑADIDO!
+
+  # La acción 'create' (para el cliente al hacer un pedido) NO necesita autenticación.
+  skip_before_action :authenticate_admin, only: [:create] # <-- ¡AÑADIDO!
+
   # Deshabilitamos la protección CSRF para la acción create.
   skip_before_action :verify_authenticity_token, only: [:create]
 
